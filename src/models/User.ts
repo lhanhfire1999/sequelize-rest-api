@@ -9,7 +9,7 @@ export interface User {
   dateOfBirth?: Date;
 }
 
-export const newUser = db.define('users',{
+export const userModel = db.define('users',{
   id: {
     type: Sequelize.STRING,
     allowNull: false,

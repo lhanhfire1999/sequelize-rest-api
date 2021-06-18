@@ -1,17 +1,18 @@
-import {json} from 'body-parser';
-import dotenv from 'dotenv';
 import express from 'express';
+import dotenv from 'dotenv';
+import {json,urlencoded} from 'body-parser';
 import http from 'http';
 import {createContext} from './init';
 import {route, router} from './route';
 import {db} from './config/db';
 
-
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT;
+
 app.use(json());
+app.use(urlencoded({ extended: true }))
 
 db.authenticate()
   .then(()=>{
@@ -24,7 +25,7 @@ db.authenticate()
   } )
   .catch(err => console.log('Error' + err))
 
-  app.use('/test',router);
+  app.use(router);
 // pool.connect().then( () => {
 //   console.log('Connected successfully to PostgreSQL.')
 //   http.createServer(app).listen(port, () => {
