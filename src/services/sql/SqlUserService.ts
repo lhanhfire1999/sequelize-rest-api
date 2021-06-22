@@ -5,8 +5,14 @@ export class SqlUserService {
   }
   all(): Promise<User[]> {
     return new Promise<User[]>((resolve, reject) => {
-      userModel.findAll()
+      userModel.findAll({
+        attributes: [
+          'id', 'username','email', 'phone', 
+          ['dateofbirth', 'dateOfBirth']
+        ]
+      })
       .then(data => {
+        console.log(data);
         resolve(data as any)
       })
       .catch(err=> reject(err))
@@ -15,7 +21,10 @@ export class SqlUserService {
   load(id: string): Promise<User> {
     return new Promise<User>((resolve, reject) => {
       userModel.findOne({
-        where: { id }
+        where: { id }, 
+        attributes: ['id' ,'username','email', 'phone', 
+        ['dateofbirth', 'dateOfBirth']
+      ],
       })
       .then(data => {
         resolve(data as any)
@@ -25,7 +34,8 @@ export class SqlUserService {
   }
   insert(user: User): Promise<number> {
     return new Promise<number>((resolve, reject) => {
-      userModel.create(user)
+      const {id, username, email, phone, dateOfBirth} = user;
+      userModel.create({id, username, email, phone, dateofbirth : dateOfBirth})
       .then(data => {
         resolve(data as any);
       })
@@ -35,7 +45,7 @@ export class SqlUserService {
   update(user: User): Promise<number> {
     return new Promise<number>((resolve, reject) => {
       const {id, username, email, phone, dateOfBirth} = user;
-      userModel.update({username, email, phone, dateOfBirth},{
+      userModel.update({username, email, phone, dateofbirth : dateOfBirth},{
         where:{id}
       })
       .then(data => {

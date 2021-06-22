@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-export const db = new Sequelize('master-data', 'postgres', '123', {
+export const db = new Sequelize('masterdata', 'postgres', '123', {
   host: 'localhost',
   port: 5432,
   dialect:  'postgres',

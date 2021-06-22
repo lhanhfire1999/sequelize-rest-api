@@ -21,5 +21,5 @@ export const userModel = db.define('users',{
   },
   email:  Sequelize.STRING,
   phone:  Sequelize.STRING,
-  dateOfBirth: Sequelize.DATE
+  dateofbirth: Sequelize.DATE
 })
